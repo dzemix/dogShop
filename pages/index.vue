@@ -2,15 +2,16 @@
   <div>
     <nav-bar />
     <section class="container">
-      <div v-for="dog in dogs" :key="dog.id" class="obj">
-        <h2><a href="">{{dog.name}}</a></h2>
-        <p>{{dog.description}}</p>
-        <p>age : {{dog.age}}</p>
-        <p>{{dog.image.handle}}</p>
-        <div class="image">
-          <img :src="`https://media.graphcms.com/${dog.image.handle}`" /> 
+      <nuxt-link class="obj" :to="`/dog/${dog.id}`" v-for="dog in dogs" :key="dog.id">
+        <div class="main">
+          <h2>{{dog.name}}</h2>
+          <p>{{dog.description}}</p>
+          <p>age : {{dog.age}}</p>
+          <div class="image">
+            <img :src="`https://media.graphcms.com/${dog.image.handle}`" /> 
+          </div>           
         </div>
-      </div>
+      </nuxt-link>
     </section>
   </div>
 
@@ -36,6 +37,7 @@ export default {
     query: `
           {
             dogs {
+              id,
               name,
               age,
               description,
@@ -55,47 +57,44 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.container {
+  margin-top: 50px;
+}
 .obj {
-  border: 1px solid grey;
-  margin:5px;
-  border-radius: 10px;
-  overflow:hidden;
-  position:relative;
-  height:200px;
-  p {
-    margin:10px;
-    margin-left: 270px;
-  }
-  h2 {
-    margin-left: 270px;
-    a {
-      text-decoration: none;
-      color:black;
-    }
-  }
-  .image{ 
-    position:absolute;
+  text-decoration: none;
+  margin:50px;
+  div.main {
+    border: 1px solid grey;
+    border-radius:5px;
+    height:250px;
     overflow:hidden;
-    top:0px;
-    left:0px;
-    width:250px;
-    height:300px;
-    img {
-      display:block;
-      width:250px;
-      margin: 0 0;
+    position:relative;
+    div {
+      position:absolute;
+      top:0;
+      width:300px;
+      overflow:hidden;
+      img {
+        width:300px;
+      }
     }
+    h2 {
+      color:black;
+      margin-left: 330px;
+    }
+    p {
+      color:black;
+      margin-left: 330px;
+    }    
   }
 }
 .obj:hover {
-  h2 {
-    a {
+  text-decoration: none;
+  div {
+    h2 {
       color:green;
-    }
+    }    
   }
-}
-.container {
-  margin-top: 50px;
 }
 </style>
