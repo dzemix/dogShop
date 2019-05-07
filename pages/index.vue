@@ -3,12 +3,13 @@
     <nav-bar />
     <section class="container">
       <div v-for="dog in dogs" :key="dog.id" class="obj">
-        <p>{{dog.name}}</p>
+        <h2><a href="">{{dog.name}}</a></h2>
         <p>{{dog.description}}</p>
         <p>age : {{dog.age}}</p>
         <p>{{dog.image.handle}}</p>
-        <!-- <img src="https://media.graphcms.com/{{dog.image.handle}}" alt=""> -->
-        <img :src="`https://media.graphcms.com/${dog.image.handle}`" /> 
+        <div class="image">
+          <img :src="`https://media.graphcms.com/${dog.image.handle}`" /> 
+        </div>
       </div>
     </section>
   </div>
@@ -59,13 +60,42 @@ export default {
   border: 1px solid grey;
   margin:5px;
   border-radius: 10px;
-}
-.obj {
+  overflow:hidden;
+  position:relative;
+  height:200px;
   p {
     margin:10px;
+    margin-left: 270px;
   }
-  img {
-    width:100px;
+  h2 {
+    margin-left: 270px;
+    a {
+      text-decoration: none;
+      color:black;
+    }
   }
+  .image{ 
+    position:absolute;
+    overflow:hidden;
+    top:0px;
+    left:0px;
+    width:250px;
+    height:300px;
+    img {
+      display:block;
+      width:250px;
+      margin: 0 0;
+    }
+  }
+}
+.obj:hover {
+  h2 {
+    a {
+      color:green;
+    }
+  }
+}
+.container {
+  margin-top: 50px;
 }
 </style>
