@@ -7,25 +7,23 @@
             <h2>{{dog.name}}</h2>
             <p>{{dog.description}}</p>
           </div>
-          <p>{{comments}}</p>
-          <input type="text" v-model="writeComment" placeholder="type ur comment">
-          <button @click="sendComment()">send</button>
+          <comment-system></comment-system>
         </div>
     </div>
 </template>
 <script>
+import commentSystem from '~/components/commentSystem'
 import axios from 'axios'
 import navBar from '~/components/navBar'
 import {Route} from 'vue-router'
 export default {
   components: {
-    navBar
+    navBar,
+    commentSystem
   },
   data () {
     return {
       dogs: '',
-      comments: '',
-      writeComment: '',
       params: ''
     }
   },
@@ -54,26 +52,8 @@ export default {
   }
 }).then((result) => {
   this.dogs = result.data.data.dogs
-  console.log(this.dogs)
 })
-    axios({
-  url: 'https://api-euwest.graphcms.com/v1/cjuv6vg2j85lu01fa1ppccsy7/master',
-  method: 'post',
-  data: {
-    query: `
-            {
-              comments (where: {
-                dogId: "${this.params}"
-              }) {
-                message
-              }
-            }
-        `
-  }
-}).then((result) => {
-  this.comments = result.data.data.comments
-  console.log(this.comments)
-})
+
   },
   methods: {
     sendComment () {
