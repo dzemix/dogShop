@@ -14,6 +14,7 @@ export default {
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     link: [
+      { href:'https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300', rel:'stylesheet'},
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
