@@ -7,7 +7,7 @@
     </div>
     <div class="navigation">
       <nav>
-        <a href="" class="home">home</a>
+        <a href="/" class="home">home</a>
         <a href="">web design</a>
         <a href="">graphic design</a>
         <a href="">testimonials</a>
@@ -50,4 +50,14 @@ export default {
     }
   }
 }
+@media (min-width: 768px) {
+  nav {
+    display:block;
+  }
+ }
+@media (max-width: 768px) {
+  nav {
+    display:none;
+  }
+ }
 </style>

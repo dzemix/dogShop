@@ -2,6 +2,7 @@
   <div class="comments">
     <p>comments:</p>
     <div v-for="comment in comments" :key="comment.id" class="single">
+      <p class="delete" @click="deleteComment(comment.id)">delete</p>
       <p class="time">{{comment.createdAt}}</p>
       {{comment.message}}
     </div>
@@ -43,10 +44,6 @@ export default {
   }
 }).then((result) => {
   this.comments = result.data.data.comments
-  var time = this.comments[0].createdAt
-  var date = new Date()
-  console.log(time)
-  console.log(date)
 })
   },
   methods: {
@@ -96,6 +93,48 @@ export default {
 })
         }
       })
+    },
+    deleteComment(param) {
+          axios({
+  url: 'https://api-euwest.graphcms.com/v1/cjuv6vg2j85lu01fa1ppccsy7/master',
+  method: 'post',
+  data: {
+    query: `
+      mutation {
+        deleteComment(where:{
+          id: "${param}"
+        }){
+          id
+          message
+        }
+      }
+    `
+  }
+}).then((result) => {
+  if (result) {
+          axios({
+  url: 'https://api-euwest.graphcms.com/v1/cjuv6vg2j85lu01fa1ppccsy7/master',
+  method: 'post',
+  data: {
+    query: `
+            {
+              comments (where: {
+                dogId: "${this.params}"
+              },
+              orderBy: createdAt_DESC) {
+                message,
+                id,
+                createdAt
+              }
+            }
+        `
+  }
+}).then((result) => {
+  this.comments = result.data.data.comments
+})    
+  }
+  this.comments = result.data.data.comments
+})
     }
   }
 }
@@ -111,5 +150,13 @@ export default {
       float:right;
     }
   }
+}
+.delete {
+  float:right;
+  margin-left:10px;
+}
+.delete:hover {
+  color:red;
+  cursor: pointer;
 }
 </style>
