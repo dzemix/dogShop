@@ -1,9 +1,9 @@
 export const state = () => ({
-  account: [],
+  account: '',
 })
 export const mutations = {
   login(state, param) {
-    state.account.push(param)
+    state.account = param
   },
   logout(state, param) {
     state.account = param

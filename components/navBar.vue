@@ -1,8 +1,19 @@
 <template>
   <header>
     <div class="account">
-      <a href="/login" :class="{active: isLoginActive}">login</a>
-      <a href="/register" :class="{active: isRegisterActive}">register</a>
+      <p :class="{
+        welcome: true,
+        open: isLogin
+          }">hello: {{name}}</p>
+      <a href="/login" :class="{
+        active: isLoginActive,
+        hidden: isLogin
+        }">login</a>
+      <a href="/register" :class="{
+        active: isRegisterActive,
+        hidden: isLogin
+        }">register</a>
+      <a href="#" @click='logout()'>logout</a>
     </div>
     <div class="container">
       <div class="logo">
@@ -26,7 +37,9 @@ export default {
     data () {
       return {
         isLoginActive: false,
-        isRegisterActive: false
+        isRegisterActive: false,
+        isLogin: false,
+        name: ''
       }
     },
     mounted () {
@@ -35,6 +48,18 @@ export default {
       }
       if(this.$route.name == 'register') {
         this.isRegisterActive = true
+      }
+      if (this.$store.state.account.account.length != 0) {
+        this.isLogin = true
+      }
+      if(this.$store.state.account.account.length != 0) {
+        this.name = this.$store.state.account.account[0].name
+      }
+    },
+    methods: {
+      logout() {
+        this.$store.commit('account/logout', '')
+        this.isLogin = false
       }
     }
 }
@@ -96,5 +121,19 @@ $font: #918FA5;
   .active {
     border-bottom: 3px solid $font
   }
+ }
+ .hidden {
+   display:none;
+ }
+ .welcome {
+   color:$font;
+   margin:5px;
+   padding:0px;
+   text-transform: uppercase;
+   display:none;
+ }
+ .open {
+   @extend .welcome;
+   display:inline-block;
  }
 </style>
