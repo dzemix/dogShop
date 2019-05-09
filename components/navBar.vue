@@ -1,8 +1,12 @@
 <template>
   <header>
+    <div class="account">
+      <a href="/login" :class="{active: isLoginActive}">login</a>
+      <a href="/register" :class="{active: isRegisterActive}">register</a>
+    </div>
     <div class="container">
       <div class="logo">
-        <img src="../static/logo.jpg" alt="">
+        <nuxt-link to="/"><img src="../static/logo.jpg" alt=""></nuxt-link>
       </div>
     </div>
     <div class="navigation">
@@ -19,10 +23,24 @@
 </template>
 <script>
 export default {
-    
+    data () {
+      return {
+        isLoginActive: false,
+        isRegisterActive: false
+      }
+    },
+    mounted () {
+      if(this.$route.name == 'login') {
+        this.isLoginActive = true
+      }
+      if(this.$route.name == 'register') {
+        this.isRegisterActive = true
+      }
+    }
 }
 </script>
 <style lang="scss" scoped>
+$font: #918FA5;
 .logo {
   text-align:center;
   padding-top:13px;
@@ -34,7 +52,7 @@ export default {
   nav {
     text-align:center;
     a {
-      color:#918FA5;
+      color:$font;
       line-height: 77px;
       font-size:17px;
       margin: 0 15px;
@@ -58,6 +76,25 @@ export default {
 @media (max-width: 768px) {
   nav {
     display:none;
+  }
+ }
+ .account {
+   float:right;
+   margin:5px;
+   margin-right:20px;
+   padding:10px;
+   a {
+     text-decoration:none;
+     text-transform: uppercase;
+     color:$font;
+     padding:0px;
+     margin:5px;
+   }
+  a:hover {
+    border-bottom:3px solid $font;
+  }
+  .active {
+    border-bottom: 3px solid $font
   }
  }
 </style>
