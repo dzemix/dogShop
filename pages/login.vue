@@ -48,6 +48,10 @@ export default {
   this.account = result.data.data.accounts
   if(this.account.length > 0) {
     this.response = 'login correct'
+    this.$store.commit('account/login', this.account)
+    setTimeout(function () {
+      this.$nuxt.$router.replace({ path: '/' })
+    },1000)
   } else {
     this.response = 'incorrect data try one more time'
   }
