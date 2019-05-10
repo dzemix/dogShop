@@ -10,6 +10,7 @@
   </div>
 </template>
 <script>
+import bcrypt from 'bcryptjs'
 import axios from 'axios'
 import navBar from '@/components/navBar'
 export default {
@@ -26,15 +27,15 @@ export default {
   },
   methods: {
     login () {
-          axios({
+      var saltRounds = 10
+      axios({
   url: 'https://api-euwest.graphcms.com/v1/cjuv6vg2j85lu01fa1ppccsy7/master',
   method: 'post',
   data: {
     query: `
             {
               accounts(where: {
-                name: "${this.name}",
-                password: "${this.password}"
+                name: "${this.name}"
                 }){
                 name,
                 id,
@@ -45,13 +46,18 @@ export default {
         `
   }
 }).then((result) => {
-  this.account = result.data.data.accounts
-  if(this.account.length > 0) {
-    this.response = 'login correct'
-    this.$store.commit('account/login', this.account)
-    setTimeout(function () {
-      this.$nuxt.$router.replace({ path: '/' })
-    },1000)
+  var validate = result.data.data.accounts
+  console.log(validate)
+  if(validate) {
+    if(bcrypt.compareSync(this.password, validate[0].password)) {
+      this.response = 'login correct'
+      this.$store.commit('account/login', validate)
+      setTimeout(function () {
+        this.$nuxt.$router.replace({ path: '/' })
+      },1000)      
+    }
+    
+
   } else {
     this.response = 'incorrect data try one more time'
   }

@@ -43,7 +43,6 @@ export default {
       }
     },
     mounted () {
-      console.log(this.$store.state)
       if(this.$route.name == 'login') {
         this.isLoginActive = true
       }
@@ -68,7 +67,7 @@ export default {
         }
         if(this.$store.state.account.account.length != 0) {
           this.name = this.$store.state.account.account[0].name
-        }        
+        } 
       }, 1000)
     },
     methods: {

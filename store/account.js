@@ -1,6 +1,3 @@
-import { Store } from 'vuex';
-import createCache from 'vuex-cache';
-
 export const state = () => ({
   account: ''
 })

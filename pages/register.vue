@@ -53,6 +53,7 @@
   </div>
 </template>
 <script>
+import bcrypt from 'bcryptjs'
 import axios from 'axios'
 import navBar from '@/components/navBar'
 export default {
@@ -70,8 +71,11 @@ export default {
   },
   methods: {
     onSubmit() {
+      
       if(this.password == this.password2) {
         const saltRounds = 10
+        var hash = bcrypt.hashSync(this.password, saltRounds)
+        console.log(hash)
           axios({
   url: 'https://api-euwest.graphcms.com/v1/cjuv6vg2j85lu01fa1ppccsy7/master',
   method: 'post',
@@ -82,7 +86,7 @@ mutation {
   data:{
     name: "${this.name}",
     email: "${this.email}",
-    password: "${this.password}"
+    password: "${hash}"
   }){
     name,
     email,

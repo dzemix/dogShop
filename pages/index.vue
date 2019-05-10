@@ -51,7 +51,6 @@ export default {
   }
 }).then((result) => {
   this.dogs = result.data.data.dogs
-  console.log(result.data.data.dogs)
 });
   }
 }

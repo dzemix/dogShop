@@ -34,8 +34,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    // { src: '~/plugins/vuex-cache.js', ssr: false }
-      { src: '~/plugins/localStorage.js', ssr: false }
+    { src: '~/plugins/localStorage.js', ssr: false }
   ],
 
   /*
