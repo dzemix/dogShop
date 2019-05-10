@@ -1,5 +1,8 @@
+import { Store } from 'vuex';
+import createCache from 'vuex-cache';
+
 export const state = () => ({
-  account: '',
+  account: ''
 })
 export const mutations = {
   login(state, param) {
