@@ -55,7 +55,6 @@ export default {
   } else {
     this.response = 'incorrect data try one more time'
   }
-  console.log(this.account)
 })
     }
   }

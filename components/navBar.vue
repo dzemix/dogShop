@@ -13,7 +13,7 @@
         active: isRegisterActive,
         hidden: isLogin
         }">register</a>
-      <a href="#" @click='logout()'>logout</a>
+      <a href="#" @click='logout()' :class="{hidden : !isLogin}">logout</a>
     </div>
     <div class="container">
       <div class="logo">
