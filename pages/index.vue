@@ -28,8 +28,8 @@ export default {
       dogs: ''
     }
   },
-  mounted () {
-    this.$axios.post('',
+  async asyncData ({$axios}) {
+    var dogs = (await $axios.$post('',
       {
         query: `
           {
@@ -45,10 +45,9 @@ export default {
             }
           }
         `
-      }
-    ).then((result) => {
-      this.dogs = result.data.data.dogs
-    })
+      }    
+    )).data.dogs
+    return { dogs }
   }
 }
 </script>
