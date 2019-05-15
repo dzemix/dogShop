@@ -3,7 +3,9 @@
     <div class="account">
       <a href="/cart" class="cart">
         <i class="fas fa-shopping-cart fa-lg"></i>
-        <div class="cartValue">3</div>
+        <div :class="{
+          cartValue: true,
+          displayCart: displayTrue}">{{cartValue}}</div>
       </a>
       <p :class="{
         welcome: true,
@@ -37,6 +39,7 @@
   </header>
 </template>
 <script>
+import cartVue from '../pages/cart.vue';
 export default {
     data () {
       return {
@@ -44,6 +47,18 @@ export default {
         isRegisterActive: false,
         isLogin: false,
         name: ''
+      }
+    },
+    computed: {
+      displayTrue: function () {
+        if (this.cartValue) {
+          return true
+        } else {
+          return false
+        }
+      },
+      cartValue: function () {
+        return 2
       }
     },
     mounted () {
@@ -158,7 +173,7 @@ $font: #918FA5;
   position:relative;
   .cartValue {
     position:absolute;
-    display: flex;
+    display: none;
     border-radius:50%;
     top:-9px;
     left:15px;
@@ -168,7 +183,9 @@ $font: #918FA5;
     height:20px;
     justify-content: center;
     align-items:center;
-
+  }
+  .displayCart {
+    display:flex;
   }
 }
 </style>
