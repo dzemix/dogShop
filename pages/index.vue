@@ -23,13 +23,8 @@ export default {
   components: {
     navBar
   },
-  data () {
-    return {
-      dogs: ''
-    }
-  },
-  async asyncData ({$axios}) {
-    var dogs = (await $axios.$post('',
+  asyncData ({$axios}) {
+    return $axios.$post('',
       {
         query: `
           {
@@ -46,8 +41,10 @@ export default {
           }
         `
       }    
-    )).data.dogs
-    return { dogs }
+    ).then( (res) => {
+      return { dogs: res.data.dogs }
+    })
+    
   }
 }
 </script>
