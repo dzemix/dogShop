@@ -5,7 +5,8 @@
         <i class="fas fa-shopping-cart fa-lg"></i>
         <div :class="{
           cartValue: true,
-          displayCart: displayTrue}">{{cartValue}}</div>
+          displayCart: displayTrue
+          }">{{cartValue}}</div>
       </a>
       <p :class="{
         welcome: true,
@@ -39,7 +40,6 @@
   </header>
 </template>
 <script>
-import cartVue from '../pages/cart.vue';
 export default {
     data () {
       return {
@@ -58,7 +58,8 @@ export default {
         }
       },
       cartValue: function () {
-        return 2
+        var value = this.$store.state.cart.cart.length
+        return value
       }
     },
     mounted () {

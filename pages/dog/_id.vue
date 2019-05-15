@@ -6,6 +6,9 @@
             <img :src="`https://media.graphcms.com/${dog.image.handle}`" /> 
             <h2>{{dog.name}}</h2>
             <p>{{dog.description}}</p>
+            <div class="button">
+              <b-button variant="success" @click="addCart()">ADD TO CART</b-button>
+            </div>
           </div>
           <comment-system></comment-system>
         </div>
@@ -56,6 +59,10 @@ export default {
 
   },
   methods: {
+    addCart() {
+      var value = this.$route.params.id
+      this.$store.commit('cart/addCart', value)
+    },
     sendComment () {
     axios({
   url: 'https://api-euwest.graphcms.com/v1/cjuv6vg2j85lu01fa1ppccsy7/master',
@@ -85,5 +92,10 @@ mutation {
 <style lang="scss" scoped>
 img {
   width:200px;
+}
+.button {
+  margin:15px;
+  display:flex;
+  justify-content: flex-end;
 }
 </style>
