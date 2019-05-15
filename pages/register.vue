@@ -54,7 +54,6 @@
 </template>
 <script>
 import bcrypt from 'bcryptjs'
-import axios from 'axios'
 import navBar from '@/components/navBar'
 export default {
   components: {
@@ -75,38 +74,35 @@ export default {
       if(this.password == this.password2) {
         const saltRounds = 10
         var hash = bcrypt.hashSync(this.password, saltRounds)
-        console.log(hash)
-          axios({
-  url: 'https://api-euwest.graphcms.com/v1/cjuv6vg2j85lu01fa1ppccsy7/master',
-  method: 'post',
-  data: {
-    query: `
-mutation {
-  createAccount(
-  data:{
-    name: "${this.name}",
-    email: "${this.email}",
-    password: "${hash}"
-  }){
-    name,
-    email,
-    password
-  }
-}
-        `
-  }
-}).then((result) => {
-  var data = result.data.data
-  if(!data) {
-    this.alert = result.data.errors[0].message
-  }
-  if(data) {
-    var query = []
-    query.push(data.createAccount)
-    this.$store.commit('account/login', query)
-    this.$nuxt.$router.replace({path: '/'})
-  }
-})
+          this.$axios.post('',
+            {
+              query: `
+                mutation {
+                  createAccount(
+                    data:{
+                      name: "${this.name}",
+                      email: "${this.email}",
+                      password: "${hash}"
+                  }){
+                    name,
+                    email,
+                    password
+                  }
+                }
+              `
+            }
+          ).then((result) => {
+            var data = result.data.data
+            if(!data) {
+              this.alert = result.data.errors[0].message
+            }
+            if(data) {
+              var query = []
+              query.push(data.createAccount)
+              this.$store.commit('account/login', query)
+              this.$nuxt.$router.replace({path: '/'})
+            }
+          })
       } else {
         this.alert = 'incorrect password'
       }

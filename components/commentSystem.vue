@@ -13,7 +13,6 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
 import {Route} from 'vue-router'
 export default {
   data () {
@@ -25,33 +24,29 @@ export default {
   },
   mounted () {
     this.params = this.$route.params.id
-    axios({
-  url: 'https://api-euwest.graphcms.com/v1/cjuv6vg2j85lu01fa1ppccsy7/master',
-  method: 'post',
-  data: {
-    query: `
-            {
-              comments (where: {
-                dogId: "${this.params}"
-              },
-              orderBy: createdAt_DESC) {
-                message,
-                id,
-                createdAt
-              }
+    this.$axios.post('',
+      {
+        query: `
+          {
+            comments (where: {
+              dogId: "${this.params}"
+            },
+            orderBy: createdAt_DESC) {
+              message,
+              id,
+              createdAt
             }
+          }
         `
-  }
-}).then((result) => {
-  this.comments = result.data.data.comments
-})
+      }
+    ).then((result) => {
+        this.comments = result.data.data.comments
+    })
   },
   methods: {
     sendComment () {
-    axios({
-      url: 'https://api-euwest.graphcms.com/v1/cjuv6vg2j85lu01fa1ppccsy7/master',
-      method: 'post',
-      data: {
+    this.$axios.post('',
+      {
         query: `
           mutation {
 	          createComment(
@@ -67,74 +62,66 @@ export default {
           }
         `
           }
-      }).then((result) => {
-        console.log(result)
+      ).then((result) => {
         if(result) {
-          axios({
-  url: 'https://api-euwest.graphcms.com/v1/cjuv6vg2j85lu01fa1ppccsy7/master',
-  method: 'post',
-  data: {
-    query: `
+          this.$axios.post('',
             {
-              comments (where: {
-                dogId: "${this.params}"
-              },
-              orderBy: createdAt_DESC) {
-                message,
-                id,
-                createdAt
-              }
+              query: `
+                {
+                  comments (where: {
+                    dogId: "${this.params}"
+                  },
+                  orderBy: createdAt_DESC) {
+                    message,
+                    id,
+                    createdAt
+                  }
+                }
+              `
             }
-        `
-  }
-}).then((result) => {
-  this.comments = result.data.data.comments
-  console.log(this.comments)
-})
+          ).then((result) => {
+            this.comments = result.data.data.comments
+          })
         }
       })
     },
     deleteComment(param) {
-          axios({
-  url: 'https://api-euwest.graphcms.com/v1/cjuv6vg2j85lu01fa1ppccsy7/master',
-  method: 'post',
-  data: {
-    query: `
-      mutation {
-        deleteComment(where:{
-          id: "${param}"
-        }){
-          id
-          message
-        }
-      }
-    `
-  }
-}).then((result) => {
-  if (result) {
-          axios({
-  url: 'https://api-euwest.graphcms.com/v1/cjuv6vg2j85lu01fa1ppccsy7/master',
-  method: 'post',
-  data: {
-    query: `
-            {
-              comments (where: {
-                dogId: "${this.params}"
-              },
-              orderBy: createdAt_DESC) {
-                message,
-                id,
-                createdAt
+      this.$axios.post('',
+        {
+          query: `
+            mutation {
+              deleteComment(where:{
+                id: "${param}"
+              }){
+                id
+                message
               }
             }
-        `
-  }
-}).then((result) => {
-  this.comments = result.data.data.comments
-})    
-  }
-  this.comments = result.data.data.comments
-})
+          `
+        }
+      ).then((result) => {
+        if (result) {
+          this.$axios.post('',
+            {
+              query: `
+                {
+                  comments (where: {
+                    dogId: "${this.params}"
+                  },
+                  orderBy: createdAt_DESC) {
+                    message,
+                    id,
+                    createdAt
+                  }
+                }
+              `
+            }
+          ).then((result) => {
+            this.comments = result.data.data.comments
+          })    
+        }
+      this.comments = result.data.data.comments
+    })
     }
   }
 }

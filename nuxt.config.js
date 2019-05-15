@@ -46,8 +46,12 @@ export default {
   modules: [
     // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt',
+    '@nuxtjs/axios'
   ],
-
+  axios: {
+    // proxyHeaders: false
+    baseURL: 'https://api-euwest.graphcms.com/v1/cjuv6vg2j85lu01fa1ppccsy7/master'
+  },
   /*
   ** Build configuration
   */

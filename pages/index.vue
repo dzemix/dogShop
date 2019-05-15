@@ -19,7 +19,6 @@
 
 <script>
 import navBar from '~/components/navBar.vue'
-import axios from 'axios'
 export default {
   components: {
     navBar
@@ -30,11 +29,9 @@ export default {
     }
   },
   mounted () {
-    axios({
-  url: 'https://api-euwest.graphcms.com/v1/cjuv6vg2j85lu01fa1ppccsy7/master',
-  method: 'post',
-  data: {
-    query: `
+    this.$axios.post('',
+      {
+        query: `
           {
             dogs {
               id,
@@ -48,10 +45,10 @@ export default {
             }
           }
         `
-  }
-}).then((result) => {
-  this.dogs = result.data.data.dogs
-});
+      }
+    ).then((result) => {
+      this.dogs = result.data.data.dogs
+    })
   }
 }
 </script>

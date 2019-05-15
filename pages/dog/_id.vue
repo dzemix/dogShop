@@ -16,30 +16,19 @@
 </template>
 <script>
 import commentSystem from '~/components/commentSystem'
-import axios from 'axios'
 import navBar from '~/components/navBar'
-import {Route} from 'vue-router'
 export default {
   components: {
     navBar,
     commentSystem
   },
-  data () {
-    return {
-      dogs: '',
-      params: ''
-    }
-  },
-  mounted () {
-    this.params = this.$route.params.id
-    axios({
-  url: 'https://api-euwest.graphcms.com/v1/cjuv6vg2j85lu01fa1ppccsy7/master',
-  method: 'post',
-  data: {
+  async asyncData ({$axios, params}) {
+    var dogs = (await $axios.$post('',
+ {
     query: `
             {
               dogs (where:{
-                id: "${this.params}"
+                id: "${params.id}"
               }) {
                 id,
                 name,
@@ -52,39 +41,19 @@ export default {
               }
             }
         `
-  }
-}).then((result) => {
-  this.dogs = result.data.data.dogs
-})
-
+  }  
+    )).data.dogs
+    return { dogs }
+  },
+  data () {
+    return {
+      params: ''
+    }
   },
   methods: {
     addCart() {
       var value = this.$route.params.id
       this.$store.commit('cart/addCart', value)
-    },
-    sendComment () {
-    axios({
-  url: 'https://api-euwest.graphcms.com/v1/cjuv6vg2j85lu01fa1ppccsy7/master',
-  method: 'post',
-  data: {
-    query: `
-mutation {
-	createComment(
-    data: {
-      message: "${this.writeComment}"
-      dogId: "${this.params}"
-    }
-  ) {
-    id
-    message
-  }
-}
-        `
-  }
-}).then((result) => {
-  console.log(result)
-})
     }
   }
 }

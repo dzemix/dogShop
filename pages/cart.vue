@@ -12,7 +12,6 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
 import navBar from '@/components/navBar'
 export default {
   components: {
@@ -25,17 +24,15 @@ export default {
     }
   },
   mounted () {
-      this.cartValues = this.$store.state.cart.cart
-      for(var counter = 0; this.cartValues.length > counter; counter++) {
-        axios({
-  url: 'https://api-euwest.graphcms.com/v1/cjuv6vg2j85lu01fa1ppccsy7/master',
-  method: 'post',
-  data: {
-    query: `
+    this.cartValues = this.$store.state.cart.cart
+    for(var counter = 0; this.cartValues.length > counter; counter++) {
+      this.$axios.post('',
+        {
+          query: `
             {
               dogs (where:{
                 id: "${this.cartValues[counter]}"
-              }) {
+              }){
                 id,
                 name,
                 age,
@@ -46,12 +43,12 @@ export default {
                 }
               }
             }
-        `
-  }
-}).then((result) => {
-  this.dogs.push(result.data.data.dogs[0])
-})
-      }
+          `
+        }
+      ).then((result) => {
+        this.dogs.push(result.data.data.dogs[0])
+      })
+    }
   },
   methods: {
     clear() {
