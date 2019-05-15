@@ -3,6 +3,7 @@
     <div class="account">
       <a href="/cart" class="cart">
         <i class="fas fa-shopping-cart fa-lg"></i>
+        <div class="cartValue">3</div>
       </a>
       <p :class="{
         welcome: true,
@@ -153,7 +154,21 @@ $font: #918FA5;
    @extend .welcome;
    display:inline-block;
  }
- .cart {
-   color:$font;
- }
+.cart {
+  position:relative;
+  .cartValue {
+    position:absolute;
+    display: flex;
+    border-radius:50%;
+    top:-9px;
+    left:15px;
+    background:#21A2DC;
+    color:white;
+    width:20px;
+    height:20px;
+    justify-content: center;
+    align-items:center;
+
+  }
+}
 </style>
