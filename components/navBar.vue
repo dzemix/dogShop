@@ -1,6 +1,9 @@
 <template>
   <header>
     <div class="account">
+      <a href="/cart" class="cart">
+        <i class="fas fa-shopping-cart fa-lg"></i>
+      </a>
       <p :class="{
         welcome: true,
         open: isLogin
@@ -149,5 +152,8 @@ $font: #918FA5;
  .open {
    @extend .welcome;
    display:inline-block;
+ }
+ .cart {
+   color:$font;
  }
 </style>

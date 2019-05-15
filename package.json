@@ -11,6 +11,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "apollo-boost": "^0.3.1",
     "axios": "^0.18.0",
     "bcrypt": "^3.0.6",
     "bcryptjs": "^2.4.3",
@@ -18,9 +19,11 @@
     "bootstrap-vue": "^2.0.0-rc.11",
     "cross-env": "^5.2.0",
     "fs": "0.0.1-security",
+    "graphql": "^14.3.0",
     "node-sass": "^4.12.0",
     "nuxt": "^2.4.0",
     "sass-loader": "^7.1.0",
+    "vue-apollo": "^3.0.0-beta.29",
     "vuex-cache": "^3.1.0",
     "vuex-persistedstate": "^2.5.4"
   },

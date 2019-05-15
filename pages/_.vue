@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <p>this is 404 page i will be redirect o main page in 5s</p>
+    <p>this is 404 page i will be redirect to main page in 5s</p>
   </div>
 </template>
 <script>
