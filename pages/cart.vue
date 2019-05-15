@@ -25,10 +25,8 @@ export default {
     }
   },
   mounted () {
-    setTimeout ( () => {
       this.cartValues = this.$store.state.cart.cart
       for(var counter = 0; this.cartValues.length > counter; counter++) {
-        console.log()
         axios({
   url: 'https://api-euwest.graphcms.com/v1/cjuv6vg2j85lu01fa1ppccsy7/master',
   method: 'post',
@@ -52,10 +50,8 @@ export default {
   }
 }).then((result) => {
   this.dogs.push(result.data.data.dogs[0])
-  console.log(this.dogs)
 })
       }
-    },1000) 
   },
   methods: {
     clear() {
